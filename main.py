@@ -1,7 +1,37 @@
 from random import choice
 
+def get_valid_number(question: str) -> int:
+    while True:
+        inp_number = input(question)
+        if inp_number.strip() == "":
+            print('you have forgot to enter a number')
+
+        elif not inp_number.isnumeric():
+            print("Please enter a number.")
+        else:
+            return int(inp_number)
+
+def get_valid_string(question: str) -> str:
+    while True:
+        inp_string = input(question)
+        if inp_string.strip() == "":
+            print(f"Please don't leave it empty.")
+        elif inp_string.isnumeric():
+            print(f"Please don't enter a number.")
+        else:
+            return inp_string
+def get_valid_time(question: str) -> str:
+    while True:
+        inp_time = input(question)
+        if inp_time.strip() == "":
+            print(f"Please don't leave it empty.")
+        elif inp_time.isnumeric():
+            print(f'{inp_time} is not measure of time. please enter a valid value for example(day, year, month, etc)')
+        else:
+            return inp_time
+
 def story_generate():
-    story= [1, 2, 3]
+    story= [1,2,3]
     story = choice(story)
 
     questions = {
@@ -70,7 +100,12 @@ def story_generate():
 
     if story == 1:
         for question in questions[1]:
-            questions[1][question] = input(questions[1][question])
+            if 'number' in  questions[1][question]:
+                questions[1][question] = get_valid_number(questions[1][question])
+            elif 'time' in questions[1][question]:
+                questions[1][question] = get_valid_time(questions[1][question])
+            else:
+                questions[1][question] = get_valid_string(questions[1][question])
         return f"""
 it was about {questions[1]['Number']} {questions[1]['Measure of time']} ago when I arrived at the hospital in a {questions[1]['Mode of Transportation']}. 
 The hospital is a/an {questions[1]['Adjective']} place, there are a lot of {questions[1]['Adjective2']} {questions[1]['Noun']} here. 
@@ -83,7 +118,12 @@ The most {questions[1]['Adjective3']} thing about being in the hospital is the {
 """
     elif story == 2:
         for question in questions[2]:
-            questions[2][question] = input(questions[2][question])
+            if 'number' in questions[2][question]:
+                questions[2][question] = get_valid_number(questions[2][question])
+            elif 'time' in questions[2][question]:
+                questions[2][question] = get_valid_time(questions[2][question])
+            else:
+                questions[2][question] = get_valid_string(questions[2][question])
         return f"""
 This weekend I am going camping with {questions[2]['Proper Noun']}. 
 I packed my lantern, sleeping bag, and {questions[2]['Noun']}. 
@@ -97,7 +137,12 @@ At night we will tell {questions[2]['Number (Silly Word)']} {questions[2]['Silly
 """
     else:
         for question in questions[3]:
-            questions[3][question] = input(questions[3][question])
+            if 'number' in  questions[3][question]:
+                questions[3][question] = get_valid_number(questions[3][question])
+            elif 'time' in questions[3][question]:
+                questions[3][question] = get_valid_time(questions[3][question])
+            else:
+                questions[3][question] = get_valid_string(questions[3][question])
         return f"""
 Dear {questions[3]['Proper Noun']}, I am writing to you from a {questions[3]['Adjective']} castle in an enchanted forest. 
 I found myself here one day after going for a ride on a {questions[3]['Color']} {questions[3]['Animal']} in {questions[3]['Place']}. 
