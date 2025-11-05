@@ -39,9 +39,6 @@ def story_choice(story_list: list):
         except IndexError:
             return choice(story_list)
 
-
-
-
 def story_generate():
     story_titles = ['Hospital Visit','Camping Trip','Magic Castle']
     story = story_choice(story_titles)
