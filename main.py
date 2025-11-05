@@ -1,5 +1,4 @@
-from random import choice
-
+from random import shuffle
 def get_valid_number(question: str) -> int:
     while True:
         inp_number = input(question)
@@ -29,10 +28,21 @@ def get_valid_time(question: str) -> str:
             print(f'{inp_time} is not measure of time. please enter a valid value for example(day, year, month, etc)')
         else:
             return inp_time
+def story_choice(story_list: list):
+    while True:
+        shuffle(story_list)
+        chosen_story = input(f'Please choose a number between 1 and {len(story_list)}: ').strip()
+        if chosen_story.isnumeric() and int(chosen_story) >= 1 and int(chosen_story) <= len(story_list):
+            chosen_story = int(chosen_story)
+            return story_list[chosen_story - 1]
+        else:
+            print("Please enter a valid number.")
+
+
 
 def story_generate():
-    story= [1,2,3]
-    story = choice(story)
+    story_titles = ['Hospital Visit','Camping Trip','Magic Castle']
+    story = story_choice(story_titles)
 
     questions = {
         1: {
@@ -98,7 +108,7 @@ def story_generate():
     }
 
 
-    if story == 1:
+    if story == 'Hospital Visit':
         for question in questions[1]:
             if 'number' in  questions[1][question]:
                 questions[1][question] = get_valid_number(questions[1][question])
@@ -116,7 +126,7 @@ Today I talked to a doctor and they were wearing a {questions[1]['Noun3']} on th
 I heard that all doctors {questions[1]['Verb2']} {questions[1]['Noun4']} every day for breakfast. 
 The most {questions[1]['Adjective3']} thing about being in the hospital is the {questions[1]['Silly Word']} {questions[1]['Noun5']}!
 """
-    elif story == 2:
+    elif story == 'Camping Trip':
         for question in questions[2]:
             if 'number' in questions[2][question]:
                 questions[2][question] = get_valid_number(questions[2][question])
