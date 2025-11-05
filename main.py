@@ -1,4 +1,4 @@
-from random import shuffle
+from random import choice
 def get_valid_number(question: str) -> int:
     while True:
         inp_number = input(question)
@@ -29,14 +29,16 @@ def get_valid_time(question: str) -> str:
         else:
             return inp_time
 def story_choice(story_list: list):
-    while True:
-        shuffle(story_list)
-        chosen_story = input(f'Please choose a number between 1 and {len(story_list)}: ').strip()
-        if chosen_story.isnumeric() and int(chosen_story) >= 1 and int(chosen_story) <= len(story_list):
-            chosen_story = int(chosen_story)
+    for idx, story in enumerate(story_list):
+        print(f'{idx + 1}. {story}')
+    chosen_story = input("Chose the number of story you chose: ")
+    if chosen_story.isnumeric():
+        chosen_story = int(chosen_story)
+        try:
             return story_list[chosen_story - 1]
-        else:
-            print("Please enter a valid number.")
+        except IndexError:
+            return choice(story_list)
+
 
 
 
